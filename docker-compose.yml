@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  c1:
+    container_name: c1
+    image: ubuntu:latest
+    ports:
+      - "6780:8000"
+    command: ["sleep","infinity"]
+  c2:
+    container_name: c2
+    image: ubuntu:latest
+    ports:
+      - "6781:8000"
+    command: ["sleep","infinity"]

@@ -1,0 +1,11 @@
+{
+  "name": "cluster-ddu",
+  "version": "1.0.0",
+  "description": "Proyecto para manejar el despliegue de un cluster de servidores para el proyecto ddu",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fpinilla",
+  "license": "ISC"
+}
