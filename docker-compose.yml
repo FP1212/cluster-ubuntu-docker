@@ -1,14 +1,48 @@
 version: '3.7'
+
+networks:
+  clusternetwork:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
 services:
   c1:
     container_name: c1
-    image: ubuntu:latest
+    hostname: c1
+    build: .
     ports:
-      - "6780:8000"
-    command: ["sleep","infinity"]
+      - "2225:2224"
+      - "8661:8660"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /run/docker.sock:/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+    networks:
+      clusternetwork:
+        ipv4_address: 172.20.0.6
+
+    extra_hosts:
+      - "node2:172.20.0.7"
+
   c2:
     container_name: c2
-    image: ubuntu:latest
+    hostname: c2
+    build: .
     ports:
-      - "6781:8000"
-    command: ["sleep","infinity"]
+      - "2226:2224"
+      - "8662:8660"
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup
+      - /etc/localtime:/etc/localtime:ro
+      - /run/docker.sock:/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+    networks:
+      clusternetwork:
+        ipv4_address: 172.20.0.7
+
+    extra_hosts:
+      - "node1:172.20.0.6"
